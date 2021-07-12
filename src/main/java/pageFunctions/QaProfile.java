@@ -12,7 +12,7 @@ public class QaProfile {
     private WebDriver driver;
 
     @FindBy(css="div[class*='btn'] a[class*='btn-submit']")
-    protected WebElement btnApplyForThis;
+    WebElement btnApplyForThis;
 
     public QaProfile(WebDriver driver) {
         this.driver = driver;

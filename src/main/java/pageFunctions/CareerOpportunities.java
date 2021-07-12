@@ -5,16 +5,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
 import java.util.Set;
 
 public class CareerOpportunities{
     private WebDriver driver;
 
     @FindBy(css ="ul[class='careers__cities'] li a")
-    WebElement[] labelCountries; //9th would be of Noida
+    List<WebElement> labelCountries;
 
     @FindBy(css = "li[data-city='Noida'] h3+div")
-    WebElement[] sublabelNoida;
+    List<WebElement> sublabelNoida;
 
     @FindBy(xpath="//h3[contains(text(),'Quality Assurance Engineer II')]")
     WebElement lblQA;
@@ -34,16 +35,16 @@ public class CareerOpportunities{
     public void printLocations(){
         for (WebElement ele:labelCountries
              ) {
-           System.out.println("The location is:"+ ele);
+           System.out.println("The location is:"+ ele.getText());
         }
     }
 
     public int getLengthCountry(){
-        return labelCountries.length;
+        return labelCountries.size();
     }
 
     public void clickNoida(){
-        labelCountries[8].click();
+        labelCountries.get(8).click();
     }
 
     public void printLocationsAfterNoidaClick(){
