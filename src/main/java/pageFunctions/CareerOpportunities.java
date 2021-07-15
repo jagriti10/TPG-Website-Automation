@@ -1,5 +1,6 @@
 package pageFunctions;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +23,15 @@ public class CareerOpportunities{
 
     @FindBy(xpath = "//h3[contains(text(),'Quality Assurance Engineer II')]/following-sibling::a")
     WebElement btnSeeMore;
+
+    @FindBy(css="h1[class*='headline billboard']")
+    WebElement lblCarrerOppurtunity;
+
+    @FindBy(css="span[class='header-logo']")
+    WebElement headerLogo;
+
+    @FindBy(css="a[class*='button button-cta']")
+    WebElement btnContactUs;
 
     public CareerOpportunities(WebDriver driver) {
         this.driver = driver;
@@ -76,5 +86,22 @@ public class CareerOpportunities{
     public QaProfile clickSeeMore(){
         btnSeeMore.click();
         return new QaProfile(driver) ;
+    }
+
+    public boolean isCareerHeadingDisplayed(){
+        return lblCarrerOppurtunity.isDisplayed();
+    }
+
+    public boolean isHeaderLogoDisplayed(){
+        return headerLogo.isDisplayed();
+    }
+
+    public boolean isBtnContactUsDisplayed(){
+        return btnContactUs.isDisplayed();
+    }
+
+    public void scrollDown(int i){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,"+i+")");
     }
 }
