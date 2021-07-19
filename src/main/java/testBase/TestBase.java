@@ -5,7 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import java.time.Duration;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     protected WebDriver driver;
@@ -15,6 +17,7 @@ public class TestBase {
         driver = new ChromeDriver();
         driver.get("https://www.3pillarglobal.com/");
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         System.out.println(driver.getTitle());
     }
     public WebDriver getDriver(){

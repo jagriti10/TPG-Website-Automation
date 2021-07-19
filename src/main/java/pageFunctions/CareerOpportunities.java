@@ -5,12 +5,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+
+import java.time.Duration;
+import java.time.chrono.ChronoLocalDate;
 import java.util.List;
 import java.util.Set;
 
 public class CareerOpportunities{
     private WebDriver driver;
+    WebDriverWait wait;
 
     @FindBy(css ="ul[class='careers__cities'] li a")
     List<WebElement> labelCountries;
@@ -33,13 +39,29 @@ public class CareerOpportunities{
     @FindBy(css="a[class*='button button-cta']")
     WebElement btnContactUs;
 
+    @FindBy(css="a[aria-label='Search Icon Link'] svg")
+    WebElement iconSearch;
+
+    @FindBy(css="[id*='is-search-input-0']")
+    WebElement searchBox;
+
     public CareerOpportunities(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void getTitle(){
-        driver.getTitle();
+    public String getTitle(){
+        return driver.getTitle();
+    }
+
+    public void clickSearchIcon(){
+        iconSearch.click();
+    }
+
+    public boolean isSearchbarDisplayed(){
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(searchBox));
+        return searchBox.isDisplayed();
     }
 
     public void printLocations(){
@@ -84,6 +106,8 @@ public class CareerOpportunities{
     }
 
     public QaProfile clickSeeMore(){
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(btnSeeMore));
         btnSeeMore.click();
         return new QaProfile(driver) ;
     }
